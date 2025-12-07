@@ -25,7 +25,8 @@
     PS C:\> .\__remediation_template(STIG-ID-WN10-AU-000500).ps1 
 #>
 
-$path = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer"
+$path = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection"
 if(!(Test-Path $path)) { New-Item -Path $path -Force }
-# Value 255 disables Autoplay on all drives
-Set-ItemProperty -Path $path -Name "NoDriveTypeAutoRun" -Value 255 
+# Value 0 = Security (Enterprise only) or Basic, effectively disabling Full
+Set-ItemProperty -Path $path -Name "AllowTelemetry" -Value 0 
+
