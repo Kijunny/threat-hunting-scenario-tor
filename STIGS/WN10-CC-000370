@@ -25,6 +25,13 @@
     PS C:\> .\__remediation_template(STIG-ID-WN10-AU-000500).ps1 
 #>
 
+# Registry path for PIN convenience logon setting
 $path = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
-if(!(Test-Path $path)) { New-Item -Path $path -Force }
-Set-ItemProperty -Path $path -Name "AllowDomainPINLogon" -Value 0 
+
+# Ensure the registry path exists before setting the property
+if(!(Test-Path $path)) { 
+    New-Item -Path $path -Force | Out-Null 
+}
+
+# WN10-CC-000370: Disable the convenience PIN login (Value 0)
+Set-ItemProperty -Path $path -Name "AllowDomainPINLogon" -Value
