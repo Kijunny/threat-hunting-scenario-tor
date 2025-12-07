@@ -33,5 +33,5 @@ if (!(Test-Path $RegPath)) {
     New-Item -Path $RegPath -Force | Out-Null
 }
 
-# WN10-CC-000145: Require a password when waking from sleep (On Battery)
+# Require a password when waking from sleep (On Battery)
 Set-ItemProperty -Path $RegPath -Name "DCSettingIndex" -Value 1 -Type DWord 
