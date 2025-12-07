@@ -1,0 +1,37 @@
+ <#
+.SYNOPSIS
+    This PowerShell script ensures that the maximum size of the Windows Application event log is at least 32768 KB (32 MB).
+
+.NOTES
+    Author          : Kijun Kang
+    LinkedIn        : https://www.linkedin.com/in/kijun-kang-116528168/
+    GitHub          : https://github.com/Kijunny
+    Date Created    : 2025-12-03
+    Last Modified   : 2025-12-03
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-AU-000500
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\__remediation_template(STIG-ID-WN10-AU-000500).ps1 
+#>
+
+# Registry path for Power Settings policies
+$RegPath = "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51"
+
+# Create the directory path if it does not exist
+if (!(Test-Path $RegPath)) {
+    New-Item -Path $RegPath -Force | Out-Null
+}
+
+# WN10-CC-000150: Require a password when waking from sleep (Plugged In)
+Set-ItemProperty -Path $RegPath -Name "ACSettingIndex" -Value 1 -Type DWord 
